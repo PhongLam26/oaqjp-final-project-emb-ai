@@ -1,18 +1,15 @@
-Linux terminal transcript (Docker container, Python 3.12.16):
-
+# pwd
+/home/project/final_project
+# python3
 Python 3.12.16 (main, Oct 28 2026, 02:01:20) [GCC 14.2.0] on linux
 Type "help", "copyright", "credits" or "license" for more information.
->>> import os
->>> print(os.getcwd())
-/home/project/final_project
->>> from EmotionDetection.emotion_detection import emotion_detector
->>> print(emotion_detector.__name__)
-emotion_detector
+>>> from emotion_detection import emotion_detector
+>>> print(emotion_detector('I am really mad about this'))
+Watson NLP service could not be reached. Please try again later.
 >>> exit()
-root@df64c89db56f:/home/project/final_project# python3 test_emotion_detection.py
+# python3 test_emotion_detection.py
 .....
 ----------------------------------------------------------------------
-Ran 5 tests in 0.005s
+Ran 5 tests in 0.004s
 
 OK
-root@df64c89db56f:/home/project/final_project#

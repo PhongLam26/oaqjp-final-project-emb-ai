@@ -1,34 +1,36 @@
-"""Flask web application for the Watson emotion detector."""
+"""SERVER.PY"""
 
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, render_template, request
 
-from EmotionDetection import emotion_detector
+from EmotionDetection.emotion_detection import emotion_detector
 
-app = Flask(__name__)
+app = Flask("Emotion Detector")
 
 
-@app.get("/")
-def home():
-    """Render the emotion detector page."""
+@app.route("/emotionDetector")
+def emotion_detector_function():
+    """Call the emotion detector and format its response for the page."""
+    text_to_analyze = request.args.get("textToAnalyze")
+    response = emotion_detector(text_to_analyze)
+
+    if response["dominant_emotion"] is None:
+        response_text = "Invalid Input! Please try again."
+    else:
+        response_text = (
+            f"For the given statement, the system response is 'anger': "
+            f"{response['anger']}, 'disgust': {response['disgust']}, "
+            f"'fear': {response['fear']}, 'joy': {response['joy']}, "
+            f"'sadness': {response['sadness']}. The dominant emotion is "
+            f"{response['dominant_emotion']}."
+        )
+    return response_text
+
+
+@app.route("/")
+def render_index_page():
+    """Render the emotion detector interface."""
     return render_template("index.html")
 
 
-@app.get("/emotionDetector")
-def emotion_detector_route():
-    """Return emotion scores or a readable error as JSON."""
-    text_to_analyze = request.args.get("textToAnalyze", "")
-    if not text_to_analyze.strip():
-        return jsonify({"error": {"message": "Please enter some text to analyze."}}), 400
-
-    result = emotion_detector(text_to_analyze)
-    error = result.get("error")
-    if error:
-        status_code = error.get("status_code", 502)
-        if status_code not in (400, 502):
-            status_code = 502
-        return jsonify(result), status_code
-    return jsonify(result)
-
-
 if __name__ == "__main__":
-    app.run(host="127.0.0.1", port=5000, debug=False)
+    app.run(host="0.0.0.0", port=5000)

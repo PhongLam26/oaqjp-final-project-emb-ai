@@ -74,8 +74,8 @@ class EmotionDetectorTests(unittest.TestCase):
 
         result = emotion_detector("Invalid input")
 
-        self.assertEqual(result["error"]["status_code"], 400)
-        self.assertIn("rejected", result["error"]["message"])
+        self.assertEqual(set(result), set(EMOTION_NAMES) | {"dominant_emotion"})
+        self.assertTrue(all(result[name] is None for name in EMOTION_NAMES))
         self.assertIsNone(result["dominant_emotion"])
 
     @patch("EmotionDetection.emotion_detection.requests.post")
@@ -83,8 +83,8 @@ class EmotionDetectorTests(unittest.TestCase):
         """Return an input error without contacting Watson for blank text."""
         result = emotion_detector("   ")
 
-        self.assertEqual(result["error"]["status_code"], 400)
-        self.assertIn("non-empty", result["error"]["message"])
+        self.assertEqual(set(result), set(EMOTION_NAMES) | {"dominant_emotion"})
+        self.assertIsNone(result["dominant_emotion"])
         post.assert_not_called()
 
     @patch("EmotionDetection.emotion_detection.requests.post")

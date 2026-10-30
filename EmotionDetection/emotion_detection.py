@@ -19,10 +19,17 @@ def _error_result(message, status_code):
     return result
 
 
+def _empty_scores():
+    """Return the six rubric fields with no scores."""
+    result = {name: None for name in EMOTION_NAMES}
+    result["dominant_emotion"] = None
+    return result
+
+
 def emotion_detector(text_to_analyze):
     """Return Watson emotion scores and the dominant emotion for text."""
     if not isinstance(text_to_analyze, str) or not text_to_analyze.strip():
-        return _error_result("Please enter non-empty text to analyze.", 400)
+        return _empty_scores()
 
     headers = {
         "Accept": "application/json",
@@ -44,10 +51,7 @@ def emotion_detector(text_to_analyze):
         )
 
     if response.status_code == 400:
-        return _error_result(
-            "The Watson NLP service rejected the text. Please check it and try again.",
-            400,
-        )
+        return _empty_scores()
     if response.status_code != 200:
         return _error_result(
             f"The Watson NLP service returned HTTP {response.status_code}.",
