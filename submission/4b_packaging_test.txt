@@ -1,0 +1,9 @@
+Requested live package command:
+python3 -c "from EmotionDetection.emotion_detection import emotion_detector; print(emotion_detector('I am very angry'))"
+
+The live command's actual output is recorded below after the direct Watson attempt. The service did not return scores in this environment; see the reported HTTP/network result.
+
+Separate mocked HTTP 200 contract check for the same package function (not a live result):
+{'anger': 0.8, 'disgust': 0.05, 'fear': 0.05, 'joy': 0.05, 'sadness': 0.05, 'dominant_emotion': 'anger'}
+Actual output from the live function call using the requested input (the request was made with the project's virtual-environment Python):
+{'anger': None, 'disgust': None, 'fear': None, 'joy': None, 'sadness': None, 'dominant_emotion': None, 'error': {'status_code': 502, 'message': 'The Watson NLP service could not be reached. Please try again later.'}}

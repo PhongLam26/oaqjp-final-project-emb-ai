@@ -1,0 +1,14 @@
+Mocked Watson HTTP 200 result for 'I am very angry' (formatting check only):
+{'anger': 0.8, 'disgust': 0.05, 'fear': 0.05, 'joy': 0.05, 'sadness': 0.05, 'dominant_emotion': 'anger'}
+
+Unit-test result covering all five dominant emotions and all six output keys:
+test_connection_failure_returns_service_error ... ok
+test_detects_each_dominant_emotion ... ok
+test_empty_input_is_rejected_before_request ... ok
+test_http_400_returns_structured_error ... ok
+test_sends_expected_watson_request ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.003s
+
+OK

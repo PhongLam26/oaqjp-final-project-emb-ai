@@ -1,0 +1,11 @@
+$ .venv\Scripts\python.exe -m unittest -v test_emotion_detection.py
+test_connection_failure_returns_service_error ... ok
+test_detects_each_dominant_emotion ... ok
+test_empty_input_is_rejected_before_request ... ok
+test_http_400_returns_structured_error ... ok
+test_sends_expected_watson_request ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.007s
+
+OK

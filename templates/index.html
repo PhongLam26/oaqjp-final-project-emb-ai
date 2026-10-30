@@ -1,32 +1,38 @@
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="./static/mywebscript.js"></script>
-    <style>
-        .center-heading {
-            text-align: center;
-        }
-    </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Emotion Detector</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='mywebscript.js') }}" defer></script>
 </head>
 <body>
-    <div class="card">
-        <div class="card-body">
-            <h1 class="center-heading">NLP - Emotion Detection</h1> 
-            <div style="padding: 25px 25px 25px 25px;">
-            <h2 class="mb-3">
-                <label class="form-label">Please enter the text to be analyzed</label>
-                <input type="textarea" class="form-control" id="textToAnalyze">
-            </h2>
-
-            <div style="padding: 25px 25px 25px 25px;">
-                <button onclick="RunSentimentAnalysis()" class="btn btn-secondary">Run Sentiment Analysis</button>
-            </div>
-            <div style="padding: 25px 25px 25px 25px;"></div>
-            <h2 class="mb-3">
-                <label class="form-label">Result of Emotion Detection</label>
-            </h2>
-
-            <div id="system_response" style="padding: 25px 25px 25px 25px;"></div>
-        </div>
-    </div>
+    <main class="page-shell">
+        <section class="detector-card" aria-labelledby="page-title">
+            <p class="eyebrow">IBM Watson NLP</p>
+            <h1 id="page-title">Emotion Detector</h1>
+            <p class="intro">Discover the emotions expressed in a sentence.</p>
+            <form id="analysisForm">
+                <label for="textToAnalyze">Text to analyze</label>
+                <textarea id="textToAnalyze" name="textToAnalyze" rows="4"
+                    placeholder="For example: I am really mad about this"
+                    aria-describedby="inputHint"></textarea>
+                <p id="inputHint" class="input-hint">Enter a sentence in English.</p>
+                <button id="analyzeButton" type="submit">
+                    <span>Analyze emotions</span>
+                    <span class="button-arrow" aria-hidden="true">→</span>
+                </button>
+            </form>
+            <section id="system_response" class="result-panel" aria-live="polite"
+                aria-atomic="true" aria-label="Emotion analysis result">
+                <div class="empty-state">
+                    <span class="sparkle" aria-hidden="true">✳</span>
+                    <p>Your emotion scores will appear here.</p>
+                </div>
+            </section>
+            <footer>Powered by IBM Watson NLP</footer>
+        </section>
+    </main>
 </body>
+</html>
